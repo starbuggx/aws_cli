@@ -1,0 +1,8 @@
+---
+
+awscli_url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+awscli_signature_url: "{{ awscli_url }}.sig"
+awscli_download_path: /tmp
+
+# Install the optional Session Manager plugin
+awscli_ssm_install: True

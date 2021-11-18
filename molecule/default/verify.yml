@@ -1,0 +1,22 @@
+- name: Verify
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Include role defaults vars
+      with_first_found:
+        - "../../defaults/main.yml"
+      include_vars: "{{ item }}"
+    - name: Check AWS CLI version.
+      command: aws --version
+      register: output
+    - name: Assert that AWS CLI is installed.
+      assert:
+        that:
+          - "'aws-cli' in output.stdout"
+    - name: Check AWS SSM plugin.
+      command: session-manager-plugin
+      register: output
+    - name: Assert AWS SSM plugin works properly.
+      assert:
+        that:
+          - "'The Session Manager plugin was installed successfully' in output.stdout"
