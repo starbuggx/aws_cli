@@ -43,7 +43,7 @@
   register: unarchived_file
 
 - name: Install aws-cli.
-  ansible.builtin.command: "{{ unarchived_file.dest }}/aws/install --update"
+  command: "{{ unarchived_file.dest }}/aws/install --update"
   register: installation_command
   changed_when: false
   become: yes
