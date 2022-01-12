@@ -1,4 +1,4 @@
 ---
 # Aws Session Manager Plugin
 awscli_ssm_url: "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb"
-awscli_ssm_checksum: "sha256:cd62ded5f0f420a9c3a7139312b108fac42ef21ca7ac3707ae71a2335c4539d4"
+awscli_ssm_checksum: "sha256:12bcbec7d394275c2085d610fdbd53171c9083b3abf332d90baf3bcc3e730d2c"
