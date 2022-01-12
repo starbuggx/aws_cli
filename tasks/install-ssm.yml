@@ -1,23 +1,22 @@
 ---
-
-- name: Download SSM.
+- name: Download AWS SSM
   get_url:
     url: "{{ awscli_ssm_url }}"
     dest: "{{ awscli_download_path }}"
     checksum: "{{ awscli_ssm_checksum }}"
   register: downloaded_file
 
-- name: Install SSM (RHEL).
+- name: Install AWS SSM (RHEL)
   yum:
     name: "{{ downloaded_file.dest }}"
     state: present
     disable_gpg_check: True
   when: ansible_os_family == 'RedHat'
-  become: yes
+  become: true
 
-- name: Install SSM (Debian).
+- name: Install AWS SSM (Debian)
   apt:
     deb: "{{ downloaded_file.dest }}"
     state: present
   when: ansible_os_family == 'Debian'
-  become: yes
+  become: true
