@@ -1,52 +1,54 @@
 ---
 - name: Include distribution-specific variables
-  include_vars: "{{ ansible_os_family }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Download AWS CLI
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ awscli_url }}"
     dest: "{{ awscli_download_path }}"
   register: downloaded_file
 
 - name: GPG - copy AWS public key
-  copy:
+  ansible.builtin.copy:
     src: public-key-aws
     dest: /tmp
+    mode: preserve
   register: gpg_public_key
 
 - name: GPG - import AWS public key
-  command: "gpg --import {{ gpg_public_key.dest }}"
+  ansible.builtin.command: "gpg --import {{ gpg_public_key.dest }}"
   changed_when: false
   become: true
 
 - name: Download AWS CLI signature
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ awscli_signature_url }}"
     dest: "{{ awscli_download_path }}"
   register: downloaded_signature
 
 - name: GPG - verify downloaded zip using signature file
-  command: "gpg --verify {{ downloaded_signature.dest }} {{ downloaded_file.dest }}"
+  ansible.builtin.command: "gpg --verify {{ downloaded_signature.dest }} {{ downloaded_file.dest }}"
   register: verification_output
   changed_when: false
 
 - name: Assert that GPG verification was successful
-  assert:
+  ansible.builtin.assert:
     that:
       - verification_output.rc == 0
 
 - name: Unzip downloaded file
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ downloaded_file.dest }}"
     dest: "{{ awscli_download_path }}"
     remote_src: yes
   register: unarchived_file
 
 - name: Install AWS CLI
-  command: "{{ unarchived_file.dest }}/aws/install --update"
+  ansible.builtin.command: "{{ unarchived_file.dest }}/aws/install --update"
   register: installation_command
   changed_when: false
   become: true
 
-- import_tasks: install-ssm.yml
+- name: Import tasks
+  ansible.builtin.import_tasks: install-ssm.yml
   when: awscli_ssm_install
