@@ -30,6 +30,7 @@
   ansible.builtin.command: "gpg --verify {{ downloaded_signature.dest }} {{ downloaded_file.dest }}"
   register: verification_output
   changed_when: false
+  become: true
 
 - name: Assert that GPG verification was successful
   ansible.builtin.assert:
