@@ -4,6 +4,7 @@
     url: "{{ awscli_ssm_url }}"
     dest: "{{ awscli_download_path }}"
     checksum: "{{ awscli_ssm_checksum }}"
+    mode: 0644
   register: downloaded_file
 
 - name: Install AWS SSM (RHEL)
