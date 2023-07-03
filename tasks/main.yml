@@ -55,7 +55,6 @@
 - name: AWS CLI Completion
   ansible.builtin.command: "complete -C '/usr/local/bin/aws_completer' aws"
   register: installation_command
-  become: false
 
 - name: Import tasks
   ansible.builtin.import_tasks: install-ssm.yml
