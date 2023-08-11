@@ -53,7 +53,7 @@
   become: true
 
 - name: AWS CLI Completion
-  ansible.builtin.command: "sh -c 'complete -C '/usr/bin/aws_completer' aws'"
+  ansible.builtin.shell: "complete -C '/usr/bin/aws_completer' aws"
   register: installation_command
 
 - name: Import tasks
