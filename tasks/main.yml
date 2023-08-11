@@ -52,11 +52,11 @@
   changed_when: false
   become: true
 
-- name: AWS CLI Completion
-  ansible.builtin.shell: |
-    #!/bin/bash
-    complete -C '/usr/bin/aws_completer' aws
-  register: installation_command
+# - name: AWS CLI Completion
+#   ansible.builtin.shell: |
+#     #!/bin/bash
+#     complete -C '/usr/bin/aws_completer' aws
+#   register: installation_command
 
 - name: Import tasks
   ansible.builtin.import_tasks: install-ssm.yml
