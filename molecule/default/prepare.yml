@@ -2,6 +2,7 @@
 - name: Prepare
   hosts: all
   roles:
+    - role: ecgalaxy.bootstrap
     - role: ecgalaxy.common_packages
   environment:
     http_proxy: "{{ lookup('env', 'http_proxy') }}"
