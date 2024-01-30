@@ -1,5 +1,9 @@
 # Releases
 
+## 1.2.x
+
+- Support for Amazon Linux 2023 is added.
+
 ## 1.1.x
 
 - Support for Ubuntu 22.04 LTS is added.

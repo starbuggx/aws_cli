@@ -8,6 +8,7 @@
     dest: "{{ awscli_download_path }}"
     mode: 0644
   register: downloaded_file
+  become: true
 
 - name: GPG - copy AWS public key
   ansible.builtin.copy:
@@ -15,6 +16,7 @@
     dest: /tmp
     mode: preserve
   register: gpg_public_key
+  become: true
 
 - name: GPG - import AWS public key
   ansible.builtin.command: "gpg --import {{ gpg_public_key.dest }}"
@@ -27,6 +29,7 @@
     dest: "{{ awscli_download_path }}"
     mode: 0644
   register: downloaded_signature
+  become: true
 
 - name: GPG - verify downloaded zip using signature file
   ansible.builtin.command: "gpg --verify {{ downloaded_signature.dest }} {{ downloaded_file.dest }}"
@@ -45,6 +48,7 @@
     dest: "{{ awscli_download_path }}"
     remote_src: yes
   register: unarchived_file
+  become: true
 
 - name: Install AWS CLI
   ansible.builtin.command: "{{ unarchived_file.dest }}/aws/install --update"
